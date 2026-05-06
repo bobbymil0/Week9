@@ -3,7 +3,7 @@
 ## Student Info
 
 Name: Bobby Nepali  
-Student number: N/A (please update)  
+Student number: 2412077  
 GitHub username: bobbymil0  
 
 ---
