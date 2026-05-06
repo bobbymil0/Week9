@@ -2,87 +2,51 @@
 
 ## Student Info
 
-Name: TODO  
-Student number: TODO  
-GitHub username: TODO  
+Name: Bobby Nepali  
+Student number: N/A (please update)  
+GitHub username: bobbymil0  
 
 ---
 
 ## Summary
 
-TODO: Write 3–6 sentences explaining what this program does.
-
-Suggested questions:
-
-- What problem does `analyze_lanterns` solve?
-- What kind of data does it receive?
-- What kind of report does it return?
+This program analyzes festival lantern records and returns a structured report about what happened in the log. The `analyze_lanterns` function takes a set of expected lantern names, a list of `(lantern_name, actual_section)` records, and a dictionary of correct sections. It identifies which lanterns were seen, which expected lanterns were missing, and which unexpected lanterns appeared. It also detects duplicate lantern names, counts all log records by section, and reports expected lanterns that were placed in the wrong section. The result is returned as one dictionary with six required keys.
 
 ---
 
 ## Approach
 
-TODO: Explain your solution in your own words.
-
-Use bullets. Be specific.
-
-Example structure:
-
-- First, I created ...
-- During the loop, I ...
-- After the loop, I used ...
-- Finally, I returned ...
-
 Your approach:
 
-- TODO
-- TODO
-- TODO
+- First, I created sets and dictionaries to store seen lantern names, duplicates, section counts, and wrong-section details.
+- During one loop over `lantern_log`, I updated seen names, detected duplicates with a `seen_once` set, counted records per section, and checked section correctness only for expected lanterns.
+- For wrong sections, I stored only the first wrong section found for each expected lantern.
+- After the loop, I used set subtraction to compute `missing_lanterns` and `unexpected_lanterns`.
+- Finally, I returned one report dictionary with exactly the required six keys.
 
 ---
 
 ## How I Used Dictionaries and Sets
 
-TODO: Explain where your solution uses dictionaries and sets.
-
-Answer these questions:
-
-1. Which parts of your solution used sets?
-2. Which parts of your solution used dictionaries?
-3. Why were dictionaries or sets better than using only lists?
-
 Your explanation:
 
 ```text
-TODO
+Sets were used for seen_lanterns, seen_once, duplicate_lanterns, missing_lanterns, and unexpected_lanterns.
+Dictionaries were used for count_by_section and wrong_section_lanterns (including inner expected/actual fields).
+Sets made membership checks and set difference fast and simple. Dictionaries made counting and key-based lookups straightforward.
+Using only lists would require extra loops for membership checks and updates, which would be slower and less clean.
 ```
 
 ---
 
 ## Complexity
 
-TODO: Explain the time and space complexity of your solution.
-
-Use this format:
-
-```text
-Time complexity: O(...)
-Space complexity: O(...)
-Explanation: ...
-```
-
-Your explanation should mention:
-
-- how many times your code loops through `lantern_log`
-- whether your code uses nested loops
-- what extra sets or dictionaries your code creates
-
 Your complexity explanation:
 
 ```text
-Time complexity: O(...)
-Space complexity: O(...)
-Explanation: TODO
+Time complexity: O(n + m)
+Space complexity: O(a + s)
+Explanation: The function loops through lantern_log once (n records) with O(1)-average set/dict operations inside the loop, then does set subtraction over expected and seen lantern sets (m and a sizes). There are no nested loops over the log. Extra space is used for sets of unique lantern names (a) and dictionaries for section counts and wrong-section records (s and up to a).
 ```
 
 ---
@@ -91,38 +55,30 @@ Explanation: TODO
 
 Check the cases your solution handles.
 
-- [ ] empty `lantern_log`
-- [ ] empty `expected_lanterns`
-- [ ] no missing lanterns
-- [ ] no unexpected lanterns
-- [ ] duplicate lanterns
-- [ ] wrong-section lanterns
-- [ ] unexpected lanterns ignored for wrong-section checking
+- [x] empty `lantern_log`
+- [x] empty `expected_lanterns`
+- [x] no missing lanterns
+- [x] no unexpected lanterns
+- [x] duplicate lanterns
+- [x] wrong-section lanterns
+- [x] unexpected lanterns ignored for wrong-section checking
 
 Add one more edge case you thought about:
 
 ```text
-TODO
+An expected lantern appears in multiple wrong sections; only the first wrong section should be recorded.
 ```
 
 ---
 
 ## Tests I Added
 
-The starter tests are already provided.
-
-You must add at least one meaningful test of your own in:
-
-```text
-tests/test_challenges.py
-```
-
 Describe the test you added:
 
 ```text
-Test name: TODO
-What it checks: TODO
-Why it matters: TODO
+Test name: test_analyze_lanterns_records_first_wrong_section_only
+What it checks: An expected lantern appears in two wrong sections and later once in the correct section; the report keeps only the first wrong section and still marks it as duplicate.
+Why it matters: It verifies the assignment rule about recording the first wrong section only.
 ```
 
 ---
@@ -136,19 +92,17 @@ pytest -q
 Paste your final test result here:
 
 ```text
-TODO: Example: 6 passed in 0.03s
+Could not run in this environment: Python/pytest command not available in terminal session.
 ```
 
 ---
 
 ## Assistance and Sources
 
-Be honest. You may use help for explanations, debugging, and test ideas, but the submitted code must reflect your understanding.
-
 ```text
-AI used? Y/N: TODO
-What it helped with: TODO
-Other sources used: TODO
+AI used? Y/N: Y
+What it helped with: Implementing analyze_lanterns, adding a meaningful test, and drafting README explanations.
+Other sources used: Homework brief and starter files.
 ```
 
 ---
@@ -157,8 +111,8 @@ Other sources used: TODO
 
 Before submitting, check:
 
-- [ ] I completed `analyze_lanterns` in `src/challenges.py`.
-- [ ] I added at least one meaningful test of my own.
+- [x] I completed `analyze_lanterns` in `src/challenges.py`.
+- [x] I added at least one meaningful test of my own.
 - [ ] `pytest -q` passes.
-- [ ] I completed this README.
+- [x] I completed this README.
 - [ ] I pushed my latest work to GitHub.
